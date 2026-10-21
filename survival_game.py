@@ -62,8 +62,28 @@ def signal_fire_path(health, hydration, inventory):
 
     #Transition to next scene
     type_text("\nAs you warm yourself, you hear a deep growl from the shadows...")
-    end_game(success=False)
+    animal_encounter(health, hydration, inventory)
 
+def animal_encounter(health, hydration, inventory):
+    display_status(health, hydration, inventory)
+    type_text("A pair of glowing eyes stares at you from the brush.")
+    type_text("As you watch, a wolf emerges from the shadows, snarling fiercely")
+    print("1. Stand your groud and fight.")
+    print("2. Turn and run.")
+
+    choice = input("\nEnter 1 or 2: ").strip()
+
+    if choice == "1":
+        if "Pocket Knife" in inventory:
+            type_text("As the wolf approaches, you grab your pocket knife. It lunges at you and you stab at it.")
+            type_text("The wolf gouges your arm, but as you stab it, it yelps and runs away")
+
+            health -= 40
+            print(f"Health decreased by 40! Current health: {health}%")
+
+        else:
+            type_text("\nYou have nothing to defend yourself with. The wolf attacks!")
+            end_game(success=True)
 def woods_path(health, hydration, inventory):
     print("\n--------------------------------------------------------------")
     type_text("You stumble blindly through the thick brush into the dark.")
@@ -78,6 +98,7 @@ def woods_path(health, hydration, inventory):
         end_game(success=False)
     else:
         type_text("\nYou are bruised, but you hear the faint sound of rushing water nearby.")
+        
         end_game(success=True)
 
 def end_game(success):

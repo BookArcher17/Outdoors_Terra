@@ -1,1 +1,1 @@
-#This will be my outside/outdoors project for Terra
+This will be my outside/outdoors project for Terra
