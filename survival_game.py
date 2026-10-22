@@ -83,7 +83,7 @@ def animal_encounter(health, hydration, inventory):
 
         else:
             type_text("\nYou have nothing to defend yourself with. The wolf attacks!")
-            end_game(success=True)
+            end_game(success=False)
 def woods_path(health, hydration, inventory):
     print("\n--------------------------------------------------------------")
     type_text("You stumble blindly through the thick brush into the dark.")
@@ -98,8 +98,63 @@ def woods_path(health, hydration, inventory):
         end_game(success=False)
     else:
         type_text("\nYou are bruised, but you hear the faint sound of rushing water nearby.")
+        type_text("You drink eagerly.")
+        hydration += 20
+        print(f"Hydration increased by 20! Current Hydration: {hydration}%")
+        type_text("After you have drank your fill, you must decide what to do next.")
+        print("1. Go back to the plane to see if you can salvage anything from the wreck.")
+        print("2. Search for a cave to spend the night in.")
+        print("3. Stay by the water for the night")
+
+        choice = input("\nEnter 1, 2 or 3:").strip()
+        if choice == "1":
+           type_text("You carefully climb back up the embankment and make your way back to the plane.")
+           return_to_plane_path(health, hydration, inventory) 
+
+        elif choice == "2":
+            type_text("You decide to head upstream in search of a cave to sleep in")
+            find_a_cave_path(health, hydration, inventory)
+
+        elif choice == "3":
+            type_text("You decide to spend the night by the river")
+
+        else:
+            type_text("You panic.")
+
+def return_to_plane_path(health, hydration, inventory):
+    print("-----------------------------------------------------------------")
+    type_text("Upon reaching the plane, you realise how late it is. Do you decide to take stock now or wait until morning?")
+
+#DO THE OPTIONS HERE!!!!
+
+
+def find_a_cave_path(health, hydration, inventory):
+    print("----------------------------------------------------------------------")
+    type_text("After walking for a while, you stumble across a cave opening at ground level.")
+    type_text("What do you want to do?")
+    print("1. Sleep here")
+    print("2. Search for a cave higher up away from the water")
+    print("3. Decide that this was a bad idea and return to the plane")
+
+    choice = input("\nEnter 1, 2 or 3")
+    if choice == "1":
+        type_text("You decide to sleep in this cave")
+        lower_cave_path(health, hydration, inventory)
+
+    elif choice == "2":
+        type_text("Deciding that the risk of running into predators is too high, you continue searching.")
+
+    elif choice =="3":
+        type_text("You decide to return to the plane")
+        return_to_plane_path(health, hydration, inventory)
+
+def lower_cave_path(health, hydration, inventory):
+    print("---------------------------------------------------------------")
+    type_text("You enter the cave, and a wave of exhaustion washes over you. It's been a long day.")
+    type_text("You curl up on the floor against one of the walls and fall into a deep sleep.")
+    
         
-        end_game(success=True)
+    end_game(success=True)
 
 def end_game(success):
     print("\n=========================================================")
