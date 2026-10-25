@@ -1,1 +1,1 @@
-This will be my outside/outdoors project for Terra
+This will be my outside/outdoors project for Terra. Its also my first ever project, as i am new to coding. i had to do a lot of research.
