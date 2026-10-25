@@ -263,21 +263,18 @@ def return_to_plane_path_morning(health, hydration, inventory):
     choice = input("\n Enter 1, 2, 3, 4 or 5")
     if choice == "1":
         type_text("You decide that rescuers have the best hope of locating you near the plane, so staying put is the best option")
+        stay_at_plane_path(health, hydration, inventory)
 
     elif choice == "2":
-        type_text("You decide to head north")
         head_north_path(health, hydration, inventory)
 
     elif choice == "3":
-        type_text("You decide to head south")
         head_south_path(health, hydration, inventory)
 
     elif choice == "4":
-        type_text("You decide to head east")
         head_east_path(health, hydration, inventory)
 
     elif choice == "5":
-        type_text("You decide to head south")
         head_west_path(health, hydration, inventory)
 
     else:
@@ -288,19 +285,159 @@ def head_north_path(health, hydration, inventory):
     type_text("You are drawn to the north, where you see mountains rising against the skyline. Perhaps you can build a life there.")
     type_text("The rescuers surely will see you from up there. Right?")
     type_text("You begin your long trek towards the mountain.")
+    welcome_to_the_north_path(health, hydration, inventory)
 
 def head_south_path(health, hydration, inventory):
     type_text("You are drawn south. South is downhill, where rivers go. If you follow the water, it will eventually lead to people. You hope.")
     type_text("Deciding there is no time like the present, you decide to get moving.")
+    welcome_to_the_south_path(health, hydration, inventory)
 
 def head_east_path(health, hydration, inventory):
     type_text("The eastern skyline, where the sun rises early in the morning calls to you. If you keep going far enough, you know the ocean is out there somewhere.")
     type_text("Maybe there, you will find salvation.")
-    type_text("With one last glance at the plane that carried you here, you set of eastward.")
+    type_text("With one last glance at the plane that carried you here, you set off eastward.")
+    welcome_to_the_east_path(health, hydration, inventory)
 
 def head_west_path(health, hydration, inventory):
     type_text("The west calls to you. The sun sets there, casting its final rays. Perhaps there you will be happy.")
     type_text("You carefully begin to pick a path through the thick brush.")
+    welcome_to_the_west_path(health, hydration, inventory)
+
+def welcome_to_the_north_path(health, hydration, inventory):
+    print("----------------------------------------------------------------------")
+    type_text("After a long day of hiking, you are tired and sore.")
+
+    health -= 10
+    hydration -= 20
+    print(f"Health decreased by 10! Current Health: {health}%")
+    print(f"Hydration decreased by 20! Current Hydration: {hydration}%")
+    
+    if health <= 0:
+        end_game(success=False)
+    if hydration <= 0:
+        end_game(success=False)
+    type_text("Stopping to catch your breath, you turn back to see how far you've come.")
+    type_text("You stare in awe at the landscape.")
+    type_text("From your vantage point up on this mountain, you can see for miles. The little red plane that landed you in this situation is a small dot in the distance.")
+    type_text("To the east, the ocean sparkles with the fading light. You cannot see any boats or traces of people there.")
+    type_text("To the south, you catch glimpses of the river between trees as it winds downwards for as far as the eye can see.")
+    type_text("To the west, you watch as the sun paints the sky a beautiful shade of gold, illuminating the treetops.")
+    type_text("As you watch the sun fade, you decide to find a suitable place to sleep. Fortunately, there is a conveniently located bush next to you.")
+    type_text("Morning arrives in scattered birdsong and glaring beams of light. You sit up, and that's when you notice the waterfall. It's far away enough that you cannot hear it, but it looks big.")
+    type_text("The running water will undoubtedly be clean enough for you to drink, and where there's water there's food and life.")
+    type_text("You spend a few hours hiking across the peaks until you reach the waterfall. It's beautiful")
+    print("Would you like to set us base here?")
+    choice = input("\nEnter 1 or 2")
+    print("1. Yes 2. No")
+
+    if choice == "1":
+        type_text("Welcome to your new home")
+        waterfall_home_path(health, hydration, inventory)
+
+    elif choice == "2":
+        type_text("You decide to continue searching for a better home.")
+
+    else:
+        type_text("You are indecisive, but decide to stay")
+        waterfall_home_path(health, hydration, inventory)
+
+def waterfall_home_path(health, hydration, inventory):
+    print("-------------------------------------------------")
+    type_text("Welcome to your new home!")
+
+
+
+def welcome_to_the_south_path(health, hydration, inventory):
+    print("----------------------------------------------------------------------")
+    type_text("After tumbling and weaving your way down, you are ready for the day to be over.")
+    
+    health -= 10
+    print(f"Health decreased by 10! Current Health: {health}%")
+    type_text("You are glad that you followed the river, so you always had something to drink.")
+    type_text("As the sun dips lower in the sky, you trudge on, searching for a suitable sleeping place.")
+    type_text("Eventually, you find a bush that doesn't look too offensive and curl up in it.")
+    
+    if health <= 0:
+        end_game(success=False)
+    if hydration <= 0:
+        end_game(success=False)
+
+
+
+
+
+
+
+def welcome_to_the_east_path(health, hydration, inventory):
+        print("----------------------------------------------------------------------")
+        type_text("As the sun sets, you catch your first glimpse of the ocean in the distance, and finally realise how tired you are.")
+    
+        health -= 10
+        hydration -= 20
+        print(f"Health decreased by 10! Current Health: {health}%")
+        print(f"Hydration decreased by 20! Current Hydration: {hydration}%")
+        
+        if health <= 0:
+            end_game(success=False)
+        if hydration <= 0:
+            end_game(success=False)
+        type_text("The plants here are starting to change, and you find a tree with low hanging branches.")
+        type_text("You climb up and decide to belt yourself to a branch in a comfortable fork like you'd read about a girl doing in a book.")
+        
+
+def welcome_to_the_west_path(health, hydration, inventory):
+        print("----------------------------------------------------------------------")
+        type_text("After walking for hours, you are tired and sore.")
+    
+        health -= 10
+        hydration -= 20
+        print(f"Health decreased by 10! Current Health: {health}%")
+        print(f"Hydration decreased by 20! Current Hydration: {hydration}%")
+        
+        if health <= 0:
+            end_game(success=False)
+        if hydration <= 0:
+            end_game(success=False)
+        type_text("Deciding that you have travelled far enough today, you find a tree with several exposed roots and curl up underneath one, hoping to catch a peaceful night's rest.")
+        type_text("When the first rays of sun reach you in the morning, you continue walking. The brush is thick and difficult to pass through, but you endure it.")
+        type_text("Eventually, you reach a ravine. You are about to despair when you see a rope bridge.")
+        type_text("You are about to complain about how stereotypical it is, when you realise that it looks new")
+        print("What do you want to do?")
+        print("1. Throw yourself into the ravine and die.")
+        print("2. Cross the bridge.")
+
+        choice = input("\nEnter 1 or 2")
+
+        if choice == "1":
+            type_text("Welp. You throw yourself into the ravine.")
+            end_game(success=False) 
+
+        elif choice =="2":
+            type_text("You do what any rational person would do in this situation and head to the bridge. As you cross, you realise that this can only mean one thing.")
+            type_text("People have been here recently.")
+            the_bridge_and_the_cabin_path(health, hydration, inventory)
+
+        else:
+            type_text("You try to decide what to do, but fate decides for you. You slip and plummet off the edge of the ravine.")
+            end_game(success=False)
+         
+
+def the_bridge_and_the_cabin_path(health, hydration, inventory):
+    type_text("After drawing the conslusion that people have been here recently, you hurry across the bridge. On the other side, you see a small clearing through the trees.")
+    type_text("There, you discover a cabin.")
+    print("Do you go inside or not?")
+    print("1. Go inside")
+    print("2. Decide it's too risky.")
+
+    choice = input("\nEnter 1 or 2")
+
+    if choice == "1":
+        type_text("You decide to enter the cabin. Inside, you find a group of men playing cards. They are surprised to see you.")
+        type_text("They tell you that they have been searching for you and the pilot since you didn't land on time.")
+        type_text("You share the news about the pilot's passing, and describe where you landed.")
+
+        end_game(success=True)
+
 
 def search_for_food_path(health, hydration, inventory):
     print("-------------------------------------------------------")
@@ -311,10 +448,11 @@ def search_for_food_path(health, hydration, inventory):
     inventory.append("Berries")
     print(f"\nInventory updated: {inventory}")
 
+def stay_at_plane_path(health, hydration, inventory):
+   type_text() 
 
-    
 
-    end_game(success=True)
+   
 
 def end_game(success):
     print("\n=========================================================")
