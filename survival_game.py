@@ -15,15 +15,20 @@ def display_status(health, hydration, inventory):
     print(f"❤️Health: {health}% |💧 Hydration: {hydration}%")
     print(f"🎒 Inventory: {', '.join(inventory) if inventory else 'Empty'}")
     print("="*40 + "\n")
-
-
-
+    if health <=0:
+     end_game(success=False)
+    if hydration <=0:
+     end_game(success=False)
+    if health >=100:
+        health = 100
+    if hydration >=100:
+        hydration = 100
 
 def start_game():
     print("===============================================")
     print("        WELCOME TO WILDERNESS SURVIVAL         ")
     print("===============================================")
-    type_text("You wake up alone in a dense forest, with no memory of how you got there")
+    type_text("You wake up in the cockpit of a plane. The pilot is dead. You are in the middle of the forest.")
     type_text("All you know is that you need to survive")
     type_text("The sun is setting and the temperature is dropping.\n")
 
@@ -53,7 +58,7 @@ def first_choice(health, hydration, inventory):
 
 def signal_fire_path(health, hydration, inventory):
     print("\n------------------------------------------------------")
-    type_text("You gather dry brush and metal scrapd from the plane")
+    type_text("You gather dry brush and metal scrapped from the plane")
     type_text("A spark catches! You successfully build a bright signal fire.")
     type_text("You also scavenge a [Pocket Knife] from the cockpit.")
    
@@ -85,6 +90,7 @@ def animal_encounter(health, hydration, inventory):
         else:
             type_text("\nYou have nothing to defend yourself with. The wolf attacks!")
             end_game(success=False)
+
 def woods_path(health, hydration, inventory):
     print("\n--------------------------------------------------------------")
     type_text("You stumble blindly through the thick brush into the dark.")
@@ -122,6 +128,7 @@ def woods_path(health, hydration, inventory):
 
         else:
             type_text("You panic.")
+            woods_path(health, hydration, inventory)
 
 def return_to_plane_path(health, hydration, inventory):
     print("-----------------------------------------------------------------")
@@ -150,6 +157,7 @@ def return_to_plane_path(health, hydration, inventory):
     
     else:
         type_text("You hesitate.")
+        return_to_plane_path(health, hydration, inventory)
 
 def find_a_cave_path(health, hydration, inventory):
     print("----------------------------------------------------------------------")
@@ -170,6 +178,9 @@ def find_a_cave_path(health, hydration, inventory):
     elif choice =="3":
         type_text("You decide to return to the plane")
         return_to_plane_path(health, hydration, inventory)
+    else:
+        ("Your indecision is clear")
+        find_a_cave_path(health, hydration, inventory)
 
 def lower_cave_path(health, hydration, inventory):
     print("---------------------------------------------------------------")
@@ -204,8 +215,11 @@ def flooding_cave_path(health, hydration, inventory):
         elif choice == "2":
             type_text("You decide to head off in search of a food source.")
             search_for_food_path(health, hydration, inventory)
-    
 
+        else:
+            type_text("You decide that instead of doing either of these things, you will wait here to die. You get your wish.")
+            end_game(success=False)
+    
 def river_sleep_path(health, hydration, inventory):
     print("---------------------------------------------------------------")
     type_text("You decide to sleep by the river, hoping that the sound of the water will lull you to sleep.")
@@ -345,8 +359,6 @@ def waterfall_home_path(health, hydration, inventory):
     print("-------------------------------------------------")
     type_text("Welcome to your new home!")
 
-
-
 def welcome_to_the_south_path(health, hydration, inventory):
     print("----------------------------------------------------------------------")
     type_text("After tumbling and weaving your way down, you are ready for the day to be over.")
@@ -361,12 +373,6 @@ def welcome_to_the_south_path(health, hydration, inventory):
         end_game(success=False)
     if hydration <= 0:
         end_game(success=False)
-
-
-
-
-
-
 
 def welcome_to_the_east_path(health, hydration, inventory):
         print("----------------------------------------------------------------------")
@@ -383,7 +389,6 @@ def welcome_to_the_east_path(health, hydration, inventory):
             end_game(success=False)
         type_text("The plants here are starting to change, and you find a tree with low hanging branches.")
         type_text("You climb up and decide to belt yourself to a branch in a comfortable fork like you'd read about a girl doing in a book.")
-        
 
 def welcome_to_the_west_path(health, hydration, inventory):
         print("----------------------------------------------------------------------")
@@ -421,7 +426,6 @@ def welcome_to_the_west_path(health, hydration, inventory):
             type_text("You try to decide what to do, but fate decides for you. You slip and plummet off the edge of the ravine.")
             end_game(success=False)
          
-
 def the_bridge_and_the_cabin_path(health, hydration, inventory):
     type_text("After drawing the conslusion that people have been here recently, you hurry across the bridge. On the other side, you see a small clearing through the trees.")
     type_text("There, you discover a cabin.")
@@ -438,7 +442,6 @@ def the_bridge_and_the_cabin_path(health, hydration, inventory):
 
         end_game(success=True)
 
-
 def search_for_food_path(health, hydration, inventory):
     print("-------------------------------------------------------")
     type_text("You venture into the forest, searching for any signs of edible plants or animals.")
@@ -447,13 +450,53 @@ def search_for_food_path(health, hydration, inventory):
 
     inventory.append("Berries")
     print(f"\nInventory updated: {inventory}")
+    type_text("You then decide to return to the plane")
+    return_to_plane_path_morning(health, hydration, inventory)
 
 def stay_at_plane_path(health, hydration, inventory):
-   type_text() 
+   type_text("Deciding that the best port of call is staying with the plane, which is probably traceable in some way, at least to your general area, you survey the area.")
+   type_text("You've read the book Hatchet, where the main character ends up in a imilar situation.")
+   type_text("You are torn between looking for food or creating a better shelter.")
+   print("1. Gather food")
+   print("2. Create a better shelter")
+
+   choice = input("\nEnter 1 or 2")
+
+   if choice == "1":
+       type_text("You decide to go and gather food. There were some trees bearing fruit not too far down the river. It probably won't kill you. Probably.")
+       type_text("You pick the fruit. Fortunately, you recognise it as safe. You snack as you work")
+       if health <100:
+           health +=20
+           print("Health increased by 20! Health now {health}%!")
+       type_text("After you have gathered the majority of the fruit, you decide to head back to the plane.")
+       type_text("As you reach the plane, you become aware of the sound of engines in the distance.")
+       rescue_plane_path(health, hydration, inventory)
+
+   elif choice == "2":
+       type_text("You set about gathering scrap metals from the plane and nearby branches. A few hours of hard work go by, and the end product is a small, ramshackle thing that resembles a box.")
+       type_text("It's a hut. Duh.")
+       type_text("Now that you have a shelter, you realise you are hungry.")
+       if "Berries" in inventory:
+           type_text("You pull out the berries you harvested earlier and snack on them.")
+           type_text("The sound of engines distracts you from your peaceful meal.")
+           rescue_plane_path(health, hydration, inventory)
+       else:
+           health -=10
+           print("Health depleted by 10! Current health:{health}%!")
+           type_text("As your stomach growls, you realise that you can also hear an engine.")
+           rescue_plane_path(health, hydration, inventory)
 
 
+   else:
+       type_text("A wave of misery washes over you, and you no longer have any will to live. You drop a rock on your head.")
+       end_game(success=False)
+       
+def rescue_plane_path(health, hydration, inventory):
+       type_text("A small plane, barely larger than the one that landed you in this situation, circles overhead. They haven't yet spotted you, but it won't be long until they do.")
+       type_text("You thank your lucky stars that you haven't been out here for too long and that this nightmare will finally end.")
+       type_text("Eventually, they spot you and use a megaphone to let you know that rescuers will be here soon")
+       end_game(success=True)   
    
-
 def end_game(success):
     print("\n=========================================================")
     if success:
